@@ -1,9 +1,10 @@
 {
   "name": "squarecommons",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "common functions for my projects.",
   "main": "dist/index.js",
   "type": "module",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "",
     "dev": "tsc && node dist/index.js"

@@ -15,6 +15,10 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.1
+
+- add types in package json.
+
 ### v1.0.0
 
 - initial implementation.
