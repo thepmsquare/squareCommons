@@ -15,6 +15,10 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.3
+
+- (try to) fix npm upload structure.
+
 ### v1.0.2
 
 - (try to) fix npm upload structure.
