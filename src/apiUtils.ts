@@ -1,11 +1,12 @@
-async function fetchJSONData<T>(
+import type { APIOutput } from "./types/API.js";
+async function fetchJSONData(
   baseUrl: string,
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   headers: Record<string, string> = {},
   body?: Record<string, unknown>,
   queryParams?: Record<string, string>
-): Promise<T | string> {
+): Promise<APIOutput> {
   try {
     // Construct query string if queryParams are provided
     const queryString = queryParams
@@ -29,9 +30,9 @@ async function fetchJSONData<T>(
       throw new Error(`Error ${response.status}: ${errorText}`);
     }
 
-    return (await response.json()) as T;
+    return (await response.json()) as APIOutput;
   } catch (error) {
-    return `Fetch error: ${(error as Error).message}`;
+    throw error;
   }
 }
 export { fetchJSONData };

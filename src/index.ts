@@ -1,3 +1,2 @@
-import * as apiUtils from "./apiUtils.js";
-
-export default apiUtils;
+export * from "./apiUtils.js";
+export * from "./types/API.js";

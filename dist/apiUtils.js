@@ -21,7 +21,7 @@ async function fetchJSONData(baseUrl, endpoint, method = "GET", headers = {}, bo
         return (await response.json());
     }
     catch (error) {
-        return `Fetch error: ${error.message}`;
+        throw error;
     }
 }
 export { fetchJSONData };

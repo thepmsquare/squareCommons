@@ -15,6 +15,11 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.5
+
+- add type for API output.
+- change export format.
+
 ### v1.0.4
 
 - (try to) fix npm upload structure.

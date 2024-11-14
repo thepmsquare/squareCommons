@@ -1,3 +1,3 @@
-import apiUtils from "./dist/index.js";
+import { fetchJSONData } from "./dist/index.js";
 
-console.log(await apiUtils.fetchJSONData("http://localhost:10010", "", "GET"));
+console.log(await fetchJSONData("http://localhost:10010", "", "GET"));
