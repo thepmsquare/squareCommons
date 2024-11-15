@@ -15,6 +15,11 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.7
+
+- fetchJSONData
+  - add url in logs.
+
 ### v1.0.6
 
 - fetchJSONData

@@ -25,9 +25,9 @@ async function fetchJSONData(
 
     const response = await fetch(url, options);
     const result = (await response.json()) as APIOutput;
-    console.debug(result);
+    console.debug(url + " : " + result);
     if (!response.ok) {
-      console.error(result.log);
+      console.error(url + " : " + result.log);
       const errorText = result.message;
       throw new Error(errorText ?? "Error code: UM001");
     }
