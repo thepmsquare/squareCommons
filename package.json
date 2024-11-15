@@ -1,13 +1,13 @@
 {
   "name": "squarecommons",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "common functions for my projects.",
   "main": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "",
-    "build": "tsc",
+    "build": "rm -rf ./dist && tsc",
     "dev": "tsc && node dist/index.js"
   },
   "files": [

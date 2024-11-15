@@ -15,6 +15,12 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.8
+
+- fetchJSONData
+  - remove debug log on result.
+  - stringify error log.
+
 ### v1.0.7
 
 - fetchJSONData
