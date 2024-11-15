@@ -15,6 +15,12 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.6
+
+- fetchJSONData
+  - add debug log on result.
+  - error message and log fix.
+
 ### v1.0.5
 
 - add type for API output.

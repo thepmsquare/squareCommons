@@ -14,11 +14,14 @@ async function fetchJSONData(baseUrl, endpoint, method = "GET", headers = {}, bo
             body: body ? JSON.stringify(body) : undefined,
         };
         const response = await fetch(url, options);
+        const result = (await response.json());
+        console.debug(result);
         if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Error ${response.status}: ${errorText}`);
+            console.error(result.log);
+            const errorText = result.message;
+            throw new Error(errorText ?? "Error code: UM001");
         }
-        return (await response.json());
+        return result;
     }
     catch (error) {
         throw error;
