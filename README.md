@@ -15,6 +15,11 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.9
+
+- fetchJSONData
+  - normalize headers before sending.
+
 ### v1.0.8
 
 - fetchJSONData

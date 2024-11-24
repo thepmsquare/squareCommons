@@ -1,4 +1,7 @@
 import type { APIOutput } from "./types/API.js";
+function convertSnakeToKebab(str: string): string {
+  return str.replace(/_([a-z])/g, (_, letter) => `-${letter.toLowerCase()}`);
+}
 async function fetchJSONData(
   baseUrl: string,
   endpoint: string,
@@ -8,6 +11,12 @@ async function fetchJSONData(
   queryParams?: Record<string, string>
 ): Promise<APIOutput> {
   try {
+    const normalizedHeaders = Object.fromEntries(
+      Object.entries(headers).map(([key, value]) => [
+        convertSnakeToKebab(key),
+        value,
+      ])
+    );
     // Construct query string if queryParams are provided
     const queryString = queryParams
       ? "?" + new URLSearchParams(queryParams).toString()
@@ -18,7 +27,7 @@ async function fetchJSONData(
       method,
       headers: {
         "Content-Type": "application/json",
-        ...headers,
+        ...normalizedHeaders,
       },
       body: body ? JSON.stringify(body) : undefined,
     };
