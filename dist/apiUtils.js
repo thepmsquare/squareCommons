@@ -1,5 +1,12 @@
+function convertSnakeToKebab(str) {
+    return str.replace(/_([a-z])/g, (_, letter) => `-${letter.toLowerCase()}`);
+}
 async function fetchJSONData(baseUrl, endpoint, method = "GET", headers = {}, body, queryParams) {
     try {
+        const normalizedHeaders = Object.fromEntries(Object.entries(headers).map(([key, value]) => [
+            convertSnakeToKebab(key),
+            value,
+        ]));
         // Construct query string if queryParams are provided
         const queryString = queryParams
             ? "?" + new URLSearchParams(queryParams).toString()
@@ -9,7 +16,7 @@ async function fetchJSONData(baseUrl, endpoint, method = "GET", headers = {}, bo
             method,
             headers: {
                 "Content-Type": "application/json",
-                ...headers,
+                ...normalizedHeaders,
             },
             body: body ? JSON.stringify(body) : undefined,
         };
