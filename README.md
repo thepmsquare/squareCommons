@@ -15,6 +15,10 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.12
+
+- experimental release.
+
 ### v1.0.11
 
 - experimental release.
