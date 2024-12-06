@@ -15,9 +15,13 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.11
+
+- experimental release.
+
 ### v1.0.10
 
-- release dist error fix
+- release dist error fix.
 
 ### v1.0.9
 
