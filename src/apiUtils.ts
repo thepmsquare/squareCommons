@@ -5,7 +5,7 @@ function convertSnakeToKebab(str: string): string {
 async function fetchJSONData(
   baseUrl: string,
   endpoint: string,
-  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" = "GET",
   headers: Record<string, string> = {},
   body?: Record<string, unknown>,
   queryParams?: Record<string, string>

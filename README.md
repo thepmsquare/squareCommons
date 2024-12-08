@@ -15,6 +15,10 @@ common functions for my projects.
 
 ## changelog
 
+### v1.0.13
+
+- update type in apiUtils-> fetchJSONData to include PATCH method.
+
 ### v1.0.12
 
 - experimental release.
