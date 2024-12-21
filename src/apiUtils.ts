@@ -30,6 +30,7 @@ async function fetchJSONData(
         ...normalizedHeaders,
       },
       body: body ? JSON.stringify(body) : undefined,
+      credentials: "include",
     };
 
     const response = await fetch(url, options);
