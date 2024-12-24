@@ -12,7 +12,7 @@ async function fetchJSONData(
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" = "GET",
   headers: Record<string, string> = {},
   body?: Record<string, unknown>,
-  queryParams?: Record<string, string>
+  queryParams?: Record<string, string>,
   credentials: RequestCredentialsOptions = "same-origin"
 ): Promise<APIOutput> {
   try {
