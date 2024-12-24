@@ -1,7 +1,11 @@
 import type { APIOutput } from "./types/API.js";
+
+type RequestCredentialsOptions = "include" | "same-origin" | "omit";
+
 function convertSnakeToKebab(str: string): string {
   return str.replace(/_([a-z])/g, (_, letter) => `-${letter.toLowerCase()}`);
 }
+
 async function fetchJSONData(
   baseUrl: string,
   endpoint: string,
@@ -9,6 +13,7 @@ async function fetchJSONData(
   headers: Record<string, string> = {},
   body?: Record<string, unknown>,
   queryParams?: Record<string, string>
+  credentials: RequestCredentialsOptions = "same-origin"
 ): Promise<APIOutput> {
   try {
     const normalizedHeaders = Object.fromEntries(
@@ -30,7 +35,7 @@ async function fetchJSONData(
         ...normalizedHeaders,
       },
       body: body ? JSON.stringify(body) : undefined,
-      credentials: "include",
+      credentials,
     };
 
     const response = await fetch(url, options);
