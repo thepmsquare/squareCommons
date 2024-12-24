@@ -15,6 +15,12 @@ common functions for my projects.
 
 ## changelog
 
+### v1.2.0
+
+- Make credentials configurable in apiUtils -> fetchJSONData.
+- Default credentials set to "same-origin" to match browser defaults.
+- Previous behavior can be maintained by explicitly setting credentials to "include".
+
 ### v1.1.0
 
 - add credentials: "include" in apiUtils -> fetchJSONData.
