@@ -15,6 +15,10 @@ common functions for my projects.
 
 ## changelog
 
+### v2.0.0
+
+- Migrate types to zod for runtime type checking.
+
 ### v1.2.0
 
 - Make credentials configurable in apiUtils -> fetchJSONData.
