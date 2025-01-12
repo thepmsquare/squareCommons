@@ -15,6 +15,12 @@ common functions for my projects.
 
 ## changelog
 
+### v2.1.0
+
+- API
+  - convert RequestCredentialsOptions and AvailableMethods to zod types.
+  - better error handling and logging in fetchJSONData.
+
 ### v2.0.0
 
 - Migrate types to zod for runtime type checking.
