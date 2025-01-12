@@ -1,20 +1,24 @@
-import type { APIOutput } from "./types/API.js";
+import {
+  APIOutput,
+  APIOutputZ,
+  AvailableMethods,
+  RequestCredentialsOptions,
+} from "./types/API.js";
 
-type RequestCredentialsOptions = "include" | "same-origin" | "omit";
+const convertSnakeToKebab = (input: string): string => {
+  return input.replace(/_([a-z])/g, (_, letter) => `-${letter.toLowerCase()}`);
+};
 
-function convertSnakeToKebab(str: string): string {
-  return str.replace(/_([a-z])/g, (_, letter) => `-${letter.toLowerCase()}`);
-}
-
-async function fetchJSONData(
+const fetchJSONData = async (
   baseUrl: string,
   endpoint: string,
-  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" = "GET",
+  method: AvailableMethods = "GET",
   headers: Record<string, string> = {},
   body?: Record<string, unknown>,
   queryParams?: Record<string, string>,
   credentials: RequestCredentialsOptions = "same-origin"
-): Promise<APIOutput> {
+): Promise<APIOutput> => {
+  let response: Response | null = null;
   try {
     const normalizedHeaders = Object.fromEntries(
       Object.entries(headers).map(([key, value]) => [
@@ -38,17 +42,55 @@ async function fetchJSONData(
       credentials,
     };
 
-    const response = await fetch(url, options);
-    const result = (await response.json()) as APIOutput;
+    response = await fetch(url, options);
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!contentType.includes("application/json")) {
+      console.error(`[${new Date().toISOString()}] API Error at ${url}:`, {
+        type: null,
+        message: await response.text(),
+        details: "response is not JSON.",
+        responseStatus: response.status,
+      });
+      throw new Error("Error code: UM001");
+    }
     if (!response.ok) {
-      console.error(url + " : " + JSON.stringify(result.log));
-      const errorText = result.message;
-      throw new Error(errorText ?? "Error code: UM001");
+      let message: string | null = "";
+      try {
+        const result = APIOutputZ.parse(await response.json());
+        console.error(`[${new Date().toISOString()}] API Error at ${url}:`, {
+          type: null,
+          message: result.log,
+          details: null,
+          responseStatus: response.status,
+        });
+        message = result.message;
+      } catch (error: any) {
+        console.error(`[${new Date().toISOString()}] API Error at ${url}:`, {
+          type: error?.constructor?.name || typeof error,
+          message: error?.message || String(error),
+          details: error,
+          responseStatus: response.status,
+        });
+        throw new Error("Error code: UM001");
+      }
+      throw new Error(message ?? "Error code: UM001");
     }
 
-    return result;
+    try {
+      const result = APIOutputZ.parse(await response.json());
+      return result;
+    } catch (error: any) {
+      console.error(`[${new Date().toISOString()}] API Error at ${url}:`, {
+        type: error?.constructor?.name || typeof error,
+        message: error?.message || String(error),
+        details: error,
+        responseStatus: response.status,
+      });
+      throw new Error("Error code: UM001");
+    }
   } catch (error) {
     throw error;
   }
-}
+};
 export { fetchJSONData };
