@@ -8,4 +8,18 @@ const APIOutputZ = z.object({
 
 type APIOutput = z.infer<typeof APIOutputZ>;
 
-export { APIOutput, APIOutputZ };
+const RequestCredentialsOptionsZ = z.enum(["include", "same-origin", "omit"]);
+
+type RequestCredentialsOptions = z.infer<typeof RequestCredentialsOptionsZ>;
+
+const AvailableMethodsZ = z.enum(["GET", "POST", "PUT", "DELETE", "PATCH"]);
+type AvailableMethods = z.infer<typeof AvailableMethodsZ>;
+
+export {
+  APIOutput,
+  APIOutputZ,
+  RequestCredentialsOptionsZ,
+  RequestCredentialsOptions,
+  AvailableMethods,
+  AvailableMethodsZ,
+};
