@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const APIOutputZ = z.object({
+const APIOutputZ = z.strictObject({
   data: z.any(),
   message: z.string().nullable(),
   log: z.any(),

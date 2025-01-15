@@ -15,6 +15,10 @@ common functions for my projects.
 
 ## changelog
 
+### v2.1.1
+
+- use strictObject instead of object in types.
+
 ### v2.1.0
 
 - API
