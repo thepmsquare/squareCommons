@@ -15,6 +15,10 @@ common functions for my projects.
 
 ## changelog
 
+### v2.2.0
+
+- add fetchFileData.
+
 ### v2.1.1
 
 - use strictObject instead of object in types.
