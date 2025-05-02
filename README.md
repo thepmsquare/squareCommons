@@ -15,6 +15,11 @@ common functions for my projects.
 
 ## changelog
 
+### v2.3.0
+
+- add FormData input support to fetchJSONData and fetchFileData.
+- add extractFilenameFromHeaders.
+
 ### v2.2.0
 
 - add fetchFileData.

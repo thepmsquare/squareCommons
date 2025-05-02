@@ -14,7 +14,7 @@ const fetchJSONData = async (
   endpoint: string,
   method: AvailableMethods = "GET",
   headers: Record<string, string> = {},
-  body?: Record<string, unknown>,
+  body?: Record<string, unknown> | FormData,
   queryParams?: Record<string, string>,
   credentials: RequestCredentialsOptions = "same-origin"
 ): Promise<APIOutput> => {
@@ -32,13 +32,28 @@ const fetchJSONData = async (
       : "";
     const url = `${baseUrl}/${endpoint}${queryString}`;
 
-    const options: RequestInit = {
-      method,
-      headers: {
+    let requestHeaders: HeadersInit | undefined;
+    if (body instanceof FormData) {
+      // do not set Content-Type if body is FormData — the browser will handle it
+      requestHeaders = {
+        ...normalizedHeaders,
+      };
+    } else {
+      requestHeaders = {
         "Content-Type": "application/json",
         ...normalizedHeaders,
-      },
-      body: body ? JSON.stringify(body) : undefined,
+      };
+    }
+
+    const options: RequestInit = {
+      method,
+      headers: requestHeaders,
+      body:
+        body instanceof FormData
+          ? body
+          : body
+          ? JSON.stringify(body)
+          : undefined,
       credentials,
     };
 
@@ -99,7 +114,7 @@ const fetchFileData = async (
   endpoint: string,
   method: AvailableMethods = "GET",
   headers: Record<string, string> = {},
-  body?: FormData,
+  body?: Record<string, unknown> | FormData,
   queryParams?: Record<string, string>,
   credentials: RequestCredentialsOptions = "same-origin"
 ): Promise<Blob> => {
@@ -117,13 +132,28 @@ const fetchFileData = async (
       : "";
     const url = `${baseUrl}/${endpoint}${queryString}`;
 
-    const options: RequestInit = {
-      method,
-      headers: {
+    let requestHeaders: HeadersInit | undefined;
+    if (body instanceof FormData) {
+      // do not set Content-Type if body is FormData — the browser will handle it
+      requestHeaders = {
+        ...normalizedHeaders,
+      };
+    } else {
+      requestHeaders = {
         "Content-Type": "application/json",
         ...normalizedHeaders,
-      },
-      body: body ? JSON.stringify(body) : undefined,
+      };
+    }
+
+    const options: RequestInit = {
+      method,
+      headers: requestHeaders,
+      body:
+        body instanceof FormData
+          ? body
+          : body
+          ? JSON.stringify(body)
+          : undefined,
       credentials,
     };
 
@@ -182,4 +212,14 @@ const fetchFileData = async (
   }
 };
 
-export { fetchJSONData, fetchFileData };
+const extractFilenameFromHeaders = (headers: Headers): string | null => {
+  const contentDisposition = headers.get("content-disposition");
+  if (!contentDisposition) return null;
+
+  const match = contentDisposition.match(
+    /filename\*?=(?:UTF-8'')?["']?([^;"']+)["']?/i
+  );
+  return match ? decodeURIComponent(match[1]) : null;
+};
+
+export { fetchJSONData, fetchFileData, extractFilenameFromHeaders };
