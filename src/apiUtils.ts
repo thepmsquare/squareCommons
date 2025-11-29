@@ -15,7 +15,7 @@ const fetchJSONData = async (
   method: AvailableMethods = "GET",
   headers: Record<string, string> = {},
   body?: Record<string, unknown> | FormData,
-  queryParams?: Record<string, string>,
+  queryParams?: Record<string, string | string[]>,
   credentials: RequestCredentialsOptions = "same-origin"
 ): Promise<APIOutput> => {
   let response: Response | null = null;
@@ -28,7 +28,12 @@ const fetchJSONData = async (
     );
     // Construct query string if queryParams are provided
     const queryString = queryParams
-      ? "?" + new URLSearchParams(queryParams).toString()
+      ? "?" +
+        new URLSearchParams(
+          Object.entries(queryParams).flatMap(([key, value]) =>
+            Array.isArray(value) ? value.map((v) => [key, v]) : [[key, value]]
+          )
+        ).toString()
       : "";
     const url = `${baseUrl}/${endpoint}${queryString}`;
 

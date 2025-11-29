@@ -1,6 +1,6 @@
 {
   "name": "squarecommons",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "common functions for my projects.",
   "main": "dist/index.js",
   "type": "module",

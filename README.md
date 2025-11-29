@@ -15,6 +15,11 @@ common functions for my projects.
 
 ## changelog
 
+### v2.4.0
+
+- fetchJSONData
+  - add support for string[] in queryParams.
+
 ### v2.3.0
 
 - add FormData input support to fetchJSONData and fetchFileData.
